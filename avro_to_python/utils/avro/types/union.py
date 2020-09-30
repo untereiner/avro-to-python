@@ -61,26 +61,30 @@ def _union_field(field: dict,
         # primitive types
         if field_type == 'primitive':
             kwargs['union_types'].append(_primitive_type({
-                'name': 'uniontype',
+                'name': 'unionField',
                 'type': typ
             }))
 
         # nested complex record
         elif field_type == 'record':
             kwargs['union_types'].append(_record_field(
-                field={'name': 'uniontype', 'type': typ},
+                field={'name': 'unionField', 'type': typ},
                 parent_namespace=parent_namespace,
                 queue=queue,
                 references=references
             ))
 
         elif field_type == 'array':
-            kwargs['union_types'].append(_array_field(field={'name': 'arraytype', 'type': typ}, parent_namespace=parent_namespace, queue=queue, references=references))
+            kwargs['union_types'].append(_array_field(
+                field={'name': 'arraytype', 'type': typ},
+                parent_namespace=parent_namespace,
+                queue=queue,
+                references=references))
 
         # nested complex record
         elif field_type == 'enum':
             kwargs['union_types'].append(_enum_field(
-                field={'name': 'uniontype', 'type': typ},
+                field={'name': 'unionField', 'type': typ},
                 parent_namespace=parent_namespace,
                 queue=queue,
                 references=references
@@ -90,7 +94,7 @@ def _union_field(field: dict,
         # handle reference types
         elif field_type == 'reference':
             kwargs['union_types'].append(_reference_type(
-                field={'name': 'uniontype',
+                field={'name': typ,
                        'type': typ},
                 references=references
             ))

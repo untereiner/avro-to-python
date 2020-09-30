@@ -23,13 +23,14 @@ def _reference_type(field: dict, references: list) -> Field:
         Field
     """
     reference = None
-    for reference in references:
-        if reference.name == field['name']:
+    for ref in references:
+        if ref.name == field['name']:
+            reference = ref
             break
 
     # should only happen with array field references
     if not reference:
-        namespace, name = split_namespace(field['type'])
+        namespace, name = split_namespace(field['name'])
         reference = Reference(name=name, namespace=namespace)
         references.append(reference)
 

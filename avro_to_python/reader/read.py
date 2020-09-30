@@ -17,6 +17,7 @@ from avro_to_python.utils.exceptions import (
 from avro_to_python.utils.avro.helpers import _get_namespace
 from avro_to_python.utils.avro.files.enum import _enum_file
 from avro_to_python.utils.avro.files.record import _record_file
+from avro_to_python.utils.avro.files.fixed import _fixed_file
 
 
 class AvscReader(object):
@@ -161,10 +162,12 @@ class AvscReader(object):
             # handle record type
             if file.avrotype == 'record':
                 _record_file(file, item, queue)
-
             # handle enum type file
             elif file.avrotype == 'enum':
                 _enum_file(file, item)
+            # handle fixed type file
+            elif file.avrotype == 'fixed':
+                _fixed_file(file, item)
             else:
                 raise ValueError(
                     f"{file['type']} is currently not supported."

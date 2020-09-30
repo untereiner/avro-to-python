@@ -1,0 +1,11 @@
+{%- block fixed -%}
+import typing
+
+class {{file.name}}(object):
+
+    {% include 'partials/avroSchema.j2'|indent(-4) %}
+    {{file.name}}: types.Fixed = types.Fixed({{file.size}})
+
+    def dict(self):
+        return todict(self)
+{% endblock -%}
